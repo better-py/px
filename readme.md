@@ -59,5 +59,7 @@ task install:dev
 ## References:
 
 - python package template: [template-python](https://github.com/jacebrowning/template-python)
-- pipx: [pipx](https://pypa.github.io/pipx/installation/)
+- pipx: [pipx](https://pypa.github.io/pipx/installation/) + [pypi](https://pypi.org/)
+- pyenv: [pyenv](https://github.com/pyenv/pyenv)
 - poetry: [poetry](https://python-poetry.org/docs/)
+- [pyenv + poetry](https://medium.com/@sri_40116/starting-with-pyenv-poetry-for-python-development-9180720bbed5)

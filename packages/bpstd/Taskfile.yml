@@ -20,9 +20,34 @@ tasks:
     cmds:
       - pip3 install -r requirements.txt
 
-  update:
+  dep:add:
     cmds:
-      - poetry install --sync
+      - poetry add django@^3.2
+      - poetry add djangorestframework@^3 django-choices
+      - poetry add requests geetest pika twilio validators sqlalchemy telegram slackclient
+      - poetry add pycoin eth_utils
+
+  dep:search:
+    cmds:
+#      - poetry search requests
+      - poetry search drf
+
+  dep:update:
+    cmds:
+      - poetry update
+      - poetry update package
+
+  dep:install:
+    cmds:
+      - poetry install
+
+  dep:export:
+    cmds:
+      - poetry export --output requirements.txt
+
+  dep:show:
+    cmds:
+      - poetry show
 
 
   run:
