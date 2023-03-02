@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from maneki.apps.common.utils.sms.nexmo_sms import Nexmo
-from maneki.apps.common.utils.sms.send_pool import SmsSender
+from ...utils.sms.nexmo_sms import Nexmo
+from ...utils.sms.send_pool import SmsSender
 
 
 class TestSendNexmo(TestCase):

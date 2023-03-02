@@ -2,7 +2,7 @@ from decimal import Decimal
 from pycoin.key.validate import is_address_valid as validate_btc_address
 
 from .eth import validate_address as validate_eth_address
-from maneki.apps.constants import CoinType
+from bpstd.constants import CoinType
 
 
 class CryptoCoinGroup(object):

@@ -7,7 +7,7 @@ import django.core.cache
 import redis
 from django.conf import settings
 
-from maneki.apps.common.utils.cache import Cache
+from ..utils.cache import Cache
 # -*- encoding:utf-8 -*-
 
 redis_url = settings.CACHES["engine_proxy"]

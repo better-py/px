@@ -4,7 +4,7 @@ import json
 import requests
 
 from celery import shared_task
-from maneki.apps.common.utils.decorator.decorators import retry
+from ..utils.decorator.decorators import retry
 from django.conf import settings
 logger = logging.getLogger(__name__)
 

@@ -7,7 +7,7 @@ import uuid
 
 import requests
 
-from maneki.apps.common.utils import generate_nonce_8bit_digits
+from ...utils import generate_nonce_8bit_digits
 
 """
 

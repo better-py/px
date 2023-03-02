@@ -5,7 +5,7 @@ import pika
 from django.conf import settings
 from pika.adapters.blocking_connection import BlockingChannel
 
-from maneki.apps.common.utils import generate_sign_sha256, validate_sign_sha256, generate_nonce_8bit, generate_timestamp_13bit
+from ..utils import generate_sign_sha256, validate_sign_sha256, generate_nonce_8bit, generate_timestamp_13bit
 
 logger = logging.getLogger(__name__)
 

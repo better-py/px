@@ -3,8 +3,8 @@ import datetime
 import pytest
 from django.conf import settings
 
-from maneki.apps.common.utils.mq.pika import BaseConsumer
-from maneki.apps.common.utils.mq.pika import BaseProducer
+from ..utils.mq.pika import BaseConsumer
+from ..utils.mq.pika import BaseProducer
 
 
 def test_mq_conf():

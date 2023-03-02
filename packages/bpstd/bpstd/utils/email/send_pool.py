@@ -1,6 +1,6 @@
 import logging
 from random import choice
-from maneki.apps.common.utils.decorator.decorators import retry
+from ..utils.decorator.decorators import retry
 from .smtp2go import client as smtp_client
 from .sendcloud import client as send_client
 from .mail_gun import client as mail_client

@@ -5,7 +5,7 @@ from djchoices import DjangoChoices
 import decimal
 
 # 所有数据表前缀:
-MODEL_PREFIX = "matrix_"
+MODEL_PREFIX = "tb_"
 
 
 # django-choices usage:

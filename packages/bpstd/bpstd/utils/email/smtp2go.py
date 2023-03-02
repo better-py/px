@@ -2,7 +2,7 @@
 import json
 import logging
 import requests
-from maneki.apps.common.utils.email import template
+from ..utils.email import template
 
 logger = logging.getLogger(__name__)
 

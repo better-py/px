@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import requests
-from maneki.apps.common.utils.email.smtp2go import SMTP2GO
+from ..utils.email.smtp2go import SMTP2GO
 
 logger = logging.getLogger(__name__)
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from maneki.apps.common.utils import date
+from ..utils import date
 
 
 def format_timestamp(timestamp, timedelta_day=30):

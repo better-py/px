@@ -3,7 +3,7 @@
 # @Author            :Helen
 # @Product           :exchange-server
 # @Description       : just assert the performance report regarding the frozenset func IT's QUICK GOOD than for loop!
-from maneki.apps.common.utils.decorator.testutil import func_performance
+from ..utils.decorator.testutil import func_performance
 
 
 @func_performance

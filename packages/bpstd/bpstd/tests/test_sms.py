@@ -1,9 +1,9 @@
 from unittest import TestCase
 
-from maneki.apps.common.utils.sms.netease import NeteaseSMS
-from maneki.apps.common.utils.sms.nexmo_sms import Nexmo
-from maneki.apps.common.utils.sms.send_pool import SmsSenderPool
-from maneki.apps.common.utils.sms.twilio_client import TwiLio
+from ..utils.sms.netease import NeteaseSMS
+from ..utils.sms.nexmo_sms import Nexmo
+from ..utils.sms.send_pool import SmsSenderPool
+from ..utils.sms.twilio_client import TwiLio
 
 
 class NeteaseSMSTest(TestCase):

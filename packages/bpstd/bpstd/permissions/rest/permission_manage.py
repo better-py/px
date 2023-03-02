@@ -2,7 +2,7 @@ import json
 
 from rest_framework.permissions import BasePermission
 
-from maneki.apps.common.utils.redis.r import redis_sessions
+from ...utils.redis.r import redis_sessions
 from maneki.apps.user.models.user_profile import UserProfile
 from maneki.apps.user_role.models.perms import RolePermission, Permission
 from maneki.apps.user_role.utils.cache import make_key, get_permission_cache

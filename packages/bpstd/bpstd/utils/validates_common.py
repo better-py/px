@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import uuid
 
-from maneki.apps.common.utils.format_timestamp import format_timestamp
+from ..utils.format_timestamp import format_timestamp
 from maneki.apps.error_code import ErrorsCommon
 from maneki.apps.user.models import User
 

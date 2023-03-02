@@ -2,9 +2,9 @@
 import time
 import json
 
-from maneki.apps.common.utils.email.mail_gun import MailGun
-from maneki.apps.common.utils.email.send_pool import EmailSenderPool
-from maneki.apps.common.utils.email.smtp2go import SMTP2GO
+from ..utils.email.mail_gun import MailGun
+from ..utils.email.send_pool import EmailSenderPool
+from ..utils.email.smtp2go import SMTP2GO
 from ..utils.email.sendcloud import SendCloudV2
 
 # test user:

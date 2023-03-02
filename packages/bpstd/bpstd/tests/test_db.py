@@ -1,4 +1,4 @@
-from maneki.apps.common.utils.db import DBEngine
+from ..utils.db import DBEngine
 
 
 def test_create_db():

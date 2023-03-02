@@ -1,6 +1,6 @@
 from nexmo import Client
 
-from maneki.apps.common.utils.crypto import generate_nonce_8bit_digits
+from ...utils.crypto import generate_nonce_8bit_digits
 
 
 class Nexmo(object):

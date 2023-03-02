@@ -2,7 +2,7 @@ import logging
 
 from twilio.rest import Client
 
-from maneki.apps.common.utils import generate_nonce_8bit_digits
+from ...utils import generate_nonce_8bit_digits
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +34,7 @@ class TwiLio(object):
         code = generate_nonce_8bit_digits(length=4)
         text = """[BTCC] confirmation code: {}
 Valid for 30 minutes.
-Please delete If you did not request this. 
+Please delete If you did not request this.
 DO NOT reveal this code to anyone.""".format(code)
         mobile = mobile
         response = self.send_text(to=mobile, content=text)

@@ -1,7 +1,7 @@
 import logging
 from random import choice
 
-from maneki.apps.common.utils.decorator.decorators import retry
+from ...utils.decorator.decorators import retry
 from .netease import client as netease_client
 from .nexmo_sms import client as nexmo_client
 from .twilio_client import client as twilio_client

@@ -1,7 +1,7 @@
 import json
 
 from django.test import TestCase
-from maneki.apps.common.utils.redis.r import redis_sessions
+from ..utils.redis.r import redis_sessions
 
 
 class TestRedis(TestCase):

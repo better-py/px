@@ -5,7 +5,7 @@
 # @Description       :
 import pytest
 
-from maneki.apps.common.utils.redis import Redis
+from ..utils.redis import Redis
 
 
 def test_set_dict():
