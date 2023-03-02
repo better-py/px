@@ -10,6 +10,20 @@
 | xxxxxxxxxxxxxx          | xxxxxxxxxxxxxxxxxx | xxxxxxxxxx |
 | xxxxxxxxxxxxxx          | xxxxxxxxxxxxxxxxxx | xxxxxxxxxx |
 
+## Usage:
+
+- poetry + git:
+
+```ruby
+
+# add bpstd:
+poetry add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
+
+
+```
+
+
+
 ## Intro:
 
 ### [packages/bpstd](packages/bpstd)
