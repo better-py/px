@@ -1,0 +1,80 @@
+version: "3"
+
+includes:
+  std:
+    taskfile: ~/.local/task/better-sre/config/Taskfile.yml
+    dir: ~/.local/task/better-sre/config # global path
+    optional: true #
+
+  bpstd:
+    taskfile: packages/bpstd/
+    dir: packages/bpstd/
+    optional: true #
+
+
+
+
+################################################################################################
+
+#
+# global vars: https://taskfile.dev/#/usage?id=variables
+#
+vars:
+  VAR1: "some-var"
+
+# global env:
+env:
+  ENV1: testing
+
+# env file:
+dotenv:
+  - .env
+
+
+################################################################################################
+
+
+tasks:
+
+  setup:
+    cmds:
+      - curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+      - pyenv install 3.9.9
+      - pyenv virtualenv 3.9.9 py39-toolbox
+      - pyenv local py39-toolbox
+
+  install:
+    cmds:
+      - pip3 install -r requirements.txt
+
+  install:dev:
+    cmds:
+      - pip3 install -r requirements-dev.txt
+
+  init:
+    cmds:
+      - task init:env
+      - task install
+
+  init:env:
+    cmds:
+      - cp .env.local .env
+
+  ##################################################################################################
+
+  new:
+    cmds:
+      - task: new:py:lib
+
+  new:py:lib:
+    dir: packages
+    cmds:
+      - cookiecutter gh:jacebrowning/template-python -f
+
+
+  ##################################################################################################
+
+  push:
+    cmds:
+      - git push origin main --tags
+      - repo_url=`git remote -v | grep push | awk -F ":" '{print $2}' | awk -F ".git" '{print "https://github.com/"$1}'`; open $repo_url
