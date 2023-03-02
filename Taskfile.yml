@@ -40,8 +40,15 @@ tasks:
     cmds:
       - curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
       - pyenv install 3.9.9
-      - pyenv virtualenv 3.9.9 py39-toolbox
-      - pyenv local py39-toolbox
+      - pyenv virtualenv 3.9.9 py39-base
+      - pyenv local py39-base
+      - task: install:tools
+
+  install:tools:
+    cmds:
+      #- curl -sSL https://install.python-poetry.org | python3 -      # install poetry
+      - pipx install poetry
+      - poetry --version
 
   install:
     cmds:
@@ -70,6 +77,11 @@ tasks:
     dir: packages
     cmds:
       - cookiecutter gh:jacebrowning/template-python -f
+
+  new:py:lib2:
+    dir: packages
+    cmds:
+      - poetry new ${NEW_LIB_NAME}
 
 
   ##################################################################################################
