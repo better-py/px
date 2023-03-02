@@ -49,6 +49,8 @@ tasks:
       #- curl -sSL https://install.python-poetry.org | python3 -      # install poetry
       - pipx install poetry
       - poetry --version
+      - poetry config virtualenvs.in-project true   # todo x: config with pyenv
+      - poetry config --list
 
   install:
     cmds:
@@ -68,6 +70,11 @@ tasks:
       - cp .env.local .env
 
   ##################################################################################################
+
+
+  update:
+    cmds:
+      - poetry install --sync
 
   new:
     cmds:
