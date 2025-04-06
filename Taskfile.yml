@@ -147,6 +147,7 @@ tasks:
     aliases: ["c"]
     cmds:
       - git add .
+      - git status
       - git commit -m "update" --no-verify
     ignore_error: true
 

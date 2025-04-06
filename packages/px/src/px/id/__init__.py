@@ -1,10 +1,12 @@
-import time
-
-from loguru import logger
 from tsidpy import TSID
 
+from .snowflakes import (
+    generate_13_str as _snowflake_generate_id_str,
+    generate_19_digit,  # noqa: F401
+)
 
-def generate_id_str():
+
+def generate_13_str(adopter: str = "twitter"):
     """Generate a string representation of a new ID
     生成一个新的 ID 的字符串表示
 
@@ -20,10 +22,16 @@ def generate_id_str():
         _description_: 生成一个新的 ID 的字符串表示
     """
 
+    assert adopter.lower() in ["discord", "twitter", "tsid"], "Invalid adopter"
+
+    if adopter.lower() == "discord":
+        return _snowflake_generate_id_str(adopter="discord")
+    elif adopter.lower() == "twitter":
+        return _snowflake_generate_id_str(adopter="twitter")
     return TSID.create()
 
 
-def generate_id_digit():
+def generate_18_digit():
     """Generate a numeric representation of a new ID
     生成一个新的 ID 的数字表示
 

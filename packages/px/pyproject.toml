@@ -1,6 +1,6 @@
 [project]
 name = "better-px" # py-extension # py-ext
-version = "0.1.1"
+version = "0.1.2"
 description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "hhglory", email = "hhglory@outlook.com" }]
@@ -16,11 +16,11 @@ keywords = [
 
 
 requires-python = ">=3.12"
-dependencies = ["loguru>=0.7.3", "tsidpy>=1.1.5"]
+dependencies = ["django>=5.2", "loguru>=0.7.3", "tsidpy>=1.1.5"]
 
 
 [project.urls]
-Documentation = "https://github.com/better-py/py-pkg"
+Documentation = "https://better-py.github.io/py-pkg/"
 Repository = "https://github.com/better-py/py-pkg/"
 Tracker = "https://github.com/better-py/py-pkg/issues"
 
@@ -41,3 +41,22 @@ packages = ["src/px"]
 # [tool.hatch.version]
 # path = "src/px/__init__.py"
 # pattern = "BUILD = 'b(?P<version>[^']+)'"
+
+
+[tool.ruff.lint.isort]
+combine-as-imports = true                      # 合并导入
+extra-standard-library = ["typing_extensions"]
+known-first-party = ["px"]                     # 用途: 强制分组, 标识为项目内部模块
+known-third-party = [""]                       # 用途: 强制分组, 标识为第三方模块
+known-local-folder = ["px"]                    # 用途: 强制分组, 标识为项目内部模块
+
+force-single-line = false          # 强制单行导入
+force-sort-within-sections = false # 强制排序
+force-wrap-aliases = true          # 强制别名换行
+order-by-type = true               # 按类型排序
+# lines-between-sections = 1                       # 每个部分之间的空行
+lines-after-imports = 2                          # 导入之后的空行
+no-lines-before = ["future", "standard-library"] # 导入之前不需要空行
+single-line-exclusions = ["os", "sys"]           # 单行导入的例外
+case-sensitive = true                            # 区分大小写
+detect-same-package = true                       # 检测相同包

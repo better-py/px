@@ -1,23 +1,42 @@
 version: "3"
 
 tasks:
+  uv:
+    aliases: ["pkg", "pm"]
+    cmds:
+      - uv {{.CLI_ARGS}}
+
   build:
     aliases: ["b"]
     cmds:
       - uv build -o dist/
     ignore_error: true
 
+  clean:
+    aliases: ["cl"]
+    cmds:
+      - rm -rf dist
+    ignore_error: true
+
+  clean:build:
+    aliases: ["cb"]
+    cmds:
+      - task: clean
+      - task: build
+
   publish:
+    aliases: ["pub", "up"]
     cmds:
       - task: build
       - echo "publish to pypi, token is $UV_PUBLISH_TOKEN"
-      - uv publish
+      - uv publish --token $UV_PUBLISH_TOKEN
+      - open https://pypi.org/project/better-px/
     ignore_error: true
     dotenv:
       - ../../.env
 
-  clean:
-    aliases: ["c", "cl"]
+  test:
+    aliases: ["t"]
     cmds:
-      - rm -rf dist
+      - uv run pytest -s -ra {{.CLI_ARGS}}
     ignore_error: true
