@@ -1,13 +1,15 @@
-# -*- coding: utf-8 -*-
 import json
 import logging
+
 import requests
+
 from ...utils.email import template
+
 
 logger = logging.getLogger(__name__)
 
 
-class SMTP2GO(object):
+class SMTP2GO:
     """
     Request Example https://api.smtp2go.com/v3/email/send
     ----------------------------------------------------------
@@ -23,6 +25,7 @@ class SMTP2GO(object):
       }
     }
     """
+
     API_KEY = "api-9C01F01E5D8911E8A2E5F23C91C88F4E"
     API_DOMAIN = "btcc.com"
     API_PREFIX = "https://api.smtp2go.com/v3/"
@@ -32,9 +35,7 @@ class SMTP2GO(object):
         self.api_key = api_key or self.API_KEY
         self.api_prefix = api_prefix or self.API_PREFIX
         self.api_domain = api_domain or self.API_DOMAIN
-        self.auth_params = {
-            "api_key": self.api_key
-        }
+        self.auth_params = {"api_key": self.api_key}
 
     def _do_post(self, url, payload: dict):
         payload.update(self.auth_params)
@@ -43,7 +44,7 @@ class SMTP2GO(object):
         result = r.json()
         for k, v in result.items():
             print("\t{}: {}".format(k, v))
-        return result.get("data").get('succeeded')
+        return result.get("data").get("succeeded")
 
     def send_template_email(self, payload: dict):
         """
@@ -60,26 +61,35 @@ class SMTP2GO(object):
         }
         :return:
         """
-        template_id = payload.get('templateInvokeName')
-        data = json.loads(payload.get('xsmtpapi'))
+        template_id = payload.get("templateInvokeName")
+        data = json.loads(payload.get("xsmtpapi"))
         # 传入模板的字符
         template_data = {
-            'verify_code': data.get('sub').get('%url%')[0],
-            'user_name': data.get('sub').get('%name%')[0]
+            "verify_code": data.get("sub").get("%url%")[0],
+            "user_name": data.get("sub").get("%name%")[0],
         }
         new_payload = {
-            'user_name': template_data.get('user_name'),
-            'user_email': payload.get('to'),
-            'email_from': payload.get('fromName'),
-            'subject': payload.get('subject'),
-            'template_id': template_id,
-            'template_data': template_data,
-            'api_domain': self.api_domain
+            "user_name": template_data.get("user_name"),
+            "user_email": payload.get("to"),
+            "email_from": payload.get("fromName"),
+            "subject": payload.get("subject"),
+            "template_id": template_id,
+            "template_data": template_data,
+            "api_domain": self.api_domain,
         }
 
         return self.send_mail(**new_payload)
 
-    def send_mail(self, user_name, user_email, email_from, subject, template_id, template_data: dict, api_domain):
+    def send_mail(
+        self,
+        user_name,
+        user_email,
+        email_from,
+        subject,
+        template_id,
+        template_data: dict,
+        api_domain,
+    ):
         """
         发送邮件
         :ref: https://apidoc.smtp2go.com/documentation/#/POST%20/email/send
@@ -105,7 +115,7 @@ class SMTP2GO(object):
             "sender": "{} <no_reply@{}>".format(email_from, api_domain),
             "subject": subject,
             "html_body": self._get_html(template_id, template_data),
-            "custom_headers": []
+            "custom_headers": [],
         }
         return self._do_post(url, http_data)
 
@@ -113,15 +123,15 @@ class SMTP2GO(object):
         return self._template(**data).get(template_id)
 
     @staticmethod
-    def _template(verify_code='', user_name=''):
+    def _template(verify_code="", user_name=""):
         return {
             "btcc_mail": template.btcc_mail.format(verify_code),
             "trade_verify": template.btcc_mail.format(verify_code),
             "kyc_l2": template.kyc_l2.format(user_name),
             "kyc_l3": template.kyc_l3.format(user_name),
             "kyc_l4": template.kyc_l4.format(user_name),
-            "kyc_no": template.kyc_no.format(user_name)
+            "kyc_no": template.kyc_no.format(user_name),
         }
 
 
-client = SMTP2GO(api_key='api-DB5BB0305F3A11E88B11F23C91C88F4E')
+client = SMTP2GO(api_key="api-DB5BB0305F3A11E88B11F23C91C88F4E")

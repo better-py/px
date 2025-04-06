@@ -1,17 +1,21 @@
 from decimal import Decimal
+
 from pycoin.key.validate import is_address_valid as validate_btc_address
 
-from .eth import validate_address as validate_eth_address
 from bpstd.constants import CoinType
 
+from .eth import validate_address as validate_eth_address
 
-class CryptoCoinGroup(object):
+
+class CryptoCoinGroup:
     btc_group = (
-        CoinType.BTC, CoinType.BCH,
+        CoinType.BTC,
+        CoinType.BCH,
     )
 
     eth_group = (
-        CoinType.ETH, CoinType.ETC,
+        CoinType.ETH,
+        CoinType.ETC,
     )
 
 

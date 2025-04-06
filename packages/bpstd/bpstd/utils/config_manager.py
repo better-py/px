@@ -1,9 +1,10 @@
-import consul
 import json
 from json import JSONDecodeError
 
+import consul
 
-class ConfigCenter(object):
+
+class ConfigCenter:
     """配置中心
 
     - 适合各种配置项: constants 常量参数

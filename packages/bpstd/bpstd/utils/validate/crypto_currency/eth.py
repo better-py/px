@@ -1,4 +1,3 @@
-# -*- encoding:utf-8 -*-
 from eth_utils import (
     is_address,
     is_checksum_address,

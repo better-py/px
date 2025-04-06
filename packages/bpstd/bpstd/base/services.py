@@ -1,6 +1,7 @@
-# -*- coding: utf-8 -*-
 import logging
+
 from django.utils import timezone
+
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +26,7 @@ def format_orm_fields(func):
     return wrapper
 
 
-class BaseService(object):
+class BaseService:
     MODEL = None
     CACHE = None
 
@@ -87,7 +88,9 @@ class BaseService(object):
         query_fields = self.fmt_kv(query_fields)
         create_fields = self.fmt_kv(create_fields)
 
-        is_ok, one = self.update_one(query_fields=query_fields, update_fields=create_fields)
+        is_ok, one = self.update_one(
+            query_fields=query_fields, update_fields=create_fields
+        )
         if not is_ok:
             one = self._create(**create_fields)
         return True, one
@@ -100,7 +103,9 @@ class BaseService(object):
         :return:
         """
         # fix: .update() 只能在 queryset 上执行, 不可用是单个obj.
-        is_ok, many = self.update_many(query_fields=query_fields, update_fields=update_fields)
+        is_ok, many = self.update_many(
+            query_fields=query_fields, update_fields=update_fields
+        )
         one = many[0] if many else None
         return is_ok, one
 
@@ -163,7 +168,9 @@ class BaseService(object):
         key = ":".join(prefix_fields)
         return key
 
-    def cache_set(self, key: str, key_prefix_fields: list, value: dict, expired: int = None):
+    def cache_set(
+        self, key: str, key_prefix_fields: list, value: dict, expired: int = None
+    ):
         """单条cache设置
 
         : ref:

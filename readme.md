@@ -1,8 +1,8 @@
-# PKG:
+# Python Packages
 
 - ✅ python packages.
 
-## Packages:
+## Packages
 
 | modules                 | desc               | rank       |
 |:------------------------|:-------------------|:-----------|
@@ -10,7 +10,7 @@
 | xxxxxxxxxxxxxx          | xxxxxxxxxxxxxxxxxx | xxxxxxxxxx |
 | xxxxxxxxxxxxxx          | xxxxxxxxxxxxxxxxxx | xxxxxxxxxx |
 
-## Usage:
+## Usage
 
 - poetry + git:
 
@@ -22,16 +22,14 @@ poetry add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
 
 ```
 
-
-
-## Intro:
+## Intro
 
 ### [packages/bpstd](packages/bpstd)
 
 - ✅ 开箱即用的 django 开发工具包
 - ✅ 已集成大量 django 开发常用的工具库
 
-## Requirements:
+## Requirements
 
 ### [packages/bpstd](packages/bpstd)
 
@@ -45,16 +43,15 @@ poetry add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
 - ✅ rabbitmq
 - ✅ celery
 
-## Development:
+## Development
 
 > install:
 
 - ✅ [go-task](https://taskfile.dev/): 命令行脚本工具
-    - [Taskfile](Taskfile.yml): 配置脚本， 替代 Makefile
+  - [Taskfile](Taskfile.yml): 配置脚本， 替代 Makefile
 - ✅ python 3.9+
 - ✅ [poetry](https://python-poetry.org/): python 包管理工具
 - ✅ pytest
-
 
 ```ruby
 
@@ -69,8 +66,7 @@ task install:dev
 
 ```
 
-
-## References:
+## References
 
 - python package template: [template-python](https://github.com/jacebrowning/template-python)
 - pipx: [pipx](https://pypa.github.io/pipx/installation/) + [pypi](https://pypi.org/)

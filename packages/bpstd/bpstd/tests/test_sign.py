@@ -8,12 +8,10 @@ def test_sign_sha256():
         "b": 1,
         "c": 1,
         "d": 1,
-
         "a2": 2,
         "b2": 2,
         "c2": 2,
         "d2": 2,
-
     }
 
     sign = generate_sign_sha256(payload=task, secret_key=secret_key)

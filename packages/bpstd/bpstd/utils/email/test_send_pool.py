@@ -6,7 +6,6 @@ from .mailgun import MailGun
 
 
 class TestSendPool(TestCase):
-
     def tsend_mail_gun(self):
         playload = {
             "from": "register@btcc.com",

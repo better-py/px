@@ -1,125 +1,28 @@
-[tool.poetry]
-
+[project]
 name = "bpstd"
-version = "0.0"
-description = "common std lib"
-
-packages = [{ include = "bpstd" }]
-
-license = "MIT"
-authors = ["Henry Huang <hhglory@outlook.com>"]
-
+version = "0.1.0"
+description = "Add your description here"
 readme = "README.md"
-homepage = "https://pypi.org/project/bpstd"
-documentation = "https://bpstd.readthedocs.io"
-repository = "https://github.com/better-py/pkg"
-
-keywords = [
+authors = [
+    { name = "hhglory", email = "hhglory@outlook.com" }
 ]
-classifiers = [
-    # TODO: update this list to match your application: https://pypi.org/pypi?%3Aaction=list_classifiers
-    "Development Status :: 1 - Planning",
-    "Natural Language :: English",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8.1.8",
+    "django-choices>=2.0.0",
+    "djangorestframework>=3.16.0",
+    "eth-utils>=5.2.0",
+    "geetest>=3.2.1",
+    "minilog>=2.3.1",
+    "pycoin>=0.92.20241201",
+    "requests>=2.32.3",
+    "slackclient>=2.9.4",
+    "sqlalchemy>=2.0.40",
+    "telegram>=0.0.1",
+    "twilio>=9.5.1",
+    "validators>=0.34.0",
 ]
-
-[tool.poetry.dependencies]
-
-python = "^3.9"
-
-# TODO: Remove these and add your library's requirements
-click = "*"
-minilog = "*"
-Django = "^3.2"
-djangorestframework = "^3"
-geetest = "^3.2.1"
-requests = "^2.28.2"
-pika = "^1.3.1"
-twilio = "^7.16.4"
-validators = "^0.20.0"
-pycoin = "^0.92.20220529"
-eth-utils = "^2.1.0"
-django-choices = "^1.7.2"
-SQLAlchemy = "^2.0.4"
-telegram = "^0.0.1"
-slackclient = "^2.9.4"
-
-[tool.poetry.dev-dependencies]
-
-# Formatters
-black = "^22.1"
-tomli = "*" # missing 'black' dependency
-isort = "^5.10"
-
-# Linters
-mypy = "^1.0"
-pydocstyle = "^6.1"
-pylint = "~2.15"
-wrapt = "*" # missing 'pylint' dependency
-
-# Testing
-pytest = "^7.1"
-pytest-describe = "^2.0"
-pytest-expecter = "^3.0"
-pytest-random = "*"
-pytest-cov = "^3.0"
-freezegun = "*"
-
-# Reports
-coveragespace = "^6.0"
-
-# Documentation
-mkdocs = "~1.3"
-pygments = "^2.11.1"
-
-# Tooling
-pyinstaller = "*"
-sniffer = "*"
-MacFSEvents = { version = "*", platform = "darwin" }
-pync = { version = "*", platform = "darwin" }
-ipython = "^7.12.0"
-
-[tool.poetry.scripts]
-
-bpstd = "bpstd.cli:main"
-
-[tool.black]
-
-quiet = true
-
-[tool.isort]
-
-profile = "black"
-
-[tool.mypy]
-
-ignore_missing_imports = true
-no_implicit_optional = true
-check_untyped_defs = true
-
-cache_dir = ".cache/mypy/"
-
-[tool.pytest.ini_options]
-
-addopts = """
---strict-markers
-
--r sxX
---show-capture=log
-
---cov-report=html
---cov-report=term-missing:skip-covered
---no-cov-on-fail
-"""
-
-cache_dir = ".cache/pytest/"
-
-markers = []
 
 [build-system]
-
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"

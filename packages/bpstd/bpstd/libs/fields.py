@@ -1,7 +1,7 @@
-from django.db import models
-
 from datetime import datetime
-from time import strftime, mktime
+from time import mktime
+
+from django.db import models
 
 
 #
@@ -22,13 +22,13 @@ class UnixTimestampField(models.DateTimeField):
         self.null = True  # To prevent the framework from shoving in "not null".
 
     def db_type(self, connection):
-        typ = ['TIMESTAMP']
+        typ = ["TIMESTAMP"]
         # See above!
         if self.isnull:
-            typ += ['NULL']
+            typ += ["NULL"]
         if self.auto_created:
-            typ += ['default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP']
-        return ' '.join(typ)
+            typ += ["default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP"]
+        return " ".join(typ)
 
     def to_python(self, value):
         return datetime.fromtimestamp(value)
@@ -45,72 +45,72 @@ class UnixTimestampField(models.DateTimeField):
 
 
 class UserRoleField(models.CharField):
-    description = 'user role'
+    description = "user role"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 20
+        kwargs["max_length"] = 20
         super(UserRoleField, self).__init__(*args, **kwargs)
 
 
 class IDField(models.CharField):
-    description = 'common id field'
+    description = "common id field"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 50
+        kwargs["max_length"] = 50
         super(IDField, self).__init__(*args, **kwargs)
 
 
 class UIDField(models.CharField):
-    description = 'ID of User'
+    description = "ID of User"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 50
+        kwargs["max_length"] = 50
         super(UIDField, self).__init__(*args, **kwargs)
 
 
 class LabelCodeField(models.CharField):
-    description = 'Label Code'
+    description = "Label Code"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 50
+        kwargs["max_length"] = 50
         super(LabelCodeField, self).__init__(*args, **kwargs)
 
 
 class BIDField(models.CharField):
-    description = 'ID of QuestionBundle'
+    description = "ID of QuestionBundle"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 50
+        kwargs["max_length"] = 50
         super(BIDField, self).__init__(*args, **kwargs)
 
 
 class CityCodeField(models.CharField):
-    description = 'Code of City'
+    description = "Code of City"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 10
+        kwargs["max_length"] = 10
         super(CityCodeField, self).__init__(*args, **kwargs)
 
 
 class CodeField(models.CharField):
-    description = 'Code'
+    description = "Code"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 50
+        kwargs["max_length"] = 50
         super(CodeField, self).__init__(*args, **kwargs)
 
 
 class ScopeField(models.CharField):
-    description = 'Scope'
+    description = "Scope"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 100
+        kwargs["max_length"] = 100
         super(ScopeField, self).__init__(*args, **kwargs)
 
 
 class StaffNameField(models.CharField):
-    description = 'staff name'
+    description = "staff name"
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 30
+        kwargs["max_length"] = 30
         super(StaffNameField, self).__init__(*args, **kwargs)

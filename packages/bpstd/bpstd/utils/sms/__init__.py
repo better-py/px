@@ -1,8 +1,5 @@
-
-
-class SmsSender(object):
-    """短信服务基类
-    """
+class SmsSender:
+    """短信服务基类"""
 
     def send_code(self, mobile: str, country_code: str):
         raise NotImplementedError
@@ -19,4 +16,3 @@ class SmsSender(object):
 
     def __init__(self, api_key, api_secret):
         self._client(api_key, api_secret)
-

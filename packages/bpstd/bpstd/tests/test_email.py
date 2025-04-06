@@ -40,7 +40,6 @@ def test_template_list():
         "from": "register@btcc.com",
         "to": "helenagu@@gmail.com",
         # "template_invoke_name": "test_template",
-
         "fromname": "henry",
         "subject": "主题",
         "html": "hello henry. {}".format(time.time()),
@@ -58,24 +57,32 @@ def test_template_list():
         else:
             func()
 
+
 xsmtpapi = {
-        "to": ['604496499@qq.com', ],
-        "sub": {
-            '%name%': ['Alex Gu', ],
-            '%url%': ['123456', ],
-        },
-    }
+    "to": [
+        "604496499@qq.com",
+    ],
+    "sub": {
+        "%name%": [
+            "Alex Gu",
+        ],
+        "%url%": [
+            "123456",
+        ],
+    },
+}
 
 # 邮件正文:
 email_content = {
     "from": "no_reply@btcc.com",
-    "to": '604496499@qq.com',
-    "fromName": 'BTCC_Team',
-    "subject": '[BTCC] Pass KYC Level 4 Verification',
+    "to": "604496499@qq.com",
+    "fromName": "BTCC_Team",
+    "subject": "[BTCC] Pass KYC Level 4 Verification",
     # 服务商配置邮件模板ID
-    "templateInvokeName": 'kyc_l4',
+    "templateInvokeName": "kyc_l4",
     "xsmtpapi": json.dumps(xsmtpapi),
 }
+
 
 def test_send_smtp2_email():
     # 注册模板格式:
@@ -85,7 +92,7 @@ def test_send_smtp2_email():
 
 
 def test_send_mail_gun():
-    s = MailGun(api_domain='btc250.com')
+    s = MailGun(api_domain="btc250.com")
     r = s.send_template_email(email_content)
     return r
 
@@ -97,7 +104,14 @@ def test_send_cloud():
 
 
 def test_send_pool():
-    template_list = ("btcc_mail", "trade_verify", "kyc_l2", "kyc_l3", "kyc_l4", "kyc_no")
+    template_list = (
+        "btcc_mail",
+        "trade_verify",
+        "kyc_l2",
+        "kyc_l3",
+        "kyc_l4",
+        "kyc_no",
+    )
     s = EmailSenderPool()
     for i in template_list:
         email_content.update(templateInvokeName=i)
@@ -115,10 +129,10 @@ def test_tem():
     url = "http://api.sendcloud.net/apiv2/mail/sendtemplate"
 
     xsmtpapi = {
-        'to': ['13901849666@139.com', 'test2@ifaxin.com'],
-        'sub': {
-            '%name%': ['user1', 'user2'],
-            '%money%': ['1000', '2000'],
+        "to": ["13901849666@139.com", "test2@ifaxin.com"],
+        "sub": {
+            "%name%": ["user1", "user2"],
+            "%money%": ["1000", "2000"],
         },
     }
 
@@ -135,7 +149,7 @@ def test_tem():
     filename = ".test.html"
     display_filename = "filename"
 
-    #files = { "attachments" : (None, open(filename,"rb"))}
+    # files = { "attachments" : (None, open(filename,"rb"))}
 
     r = requests.post(url, files=None, data=params)
 

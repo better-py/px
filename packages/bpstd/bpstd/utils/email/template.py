@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 btcc_mail = """<table style="width: 429px; height: 52px; margin-left: auto; margin-right: auto; font-family: Helvetica Neue,Helvetica,Lucida Grande,tahoma,verdana,arial,sans-serif; background: #ffffff;">
 <tbody>
 <tr>
@@ -159,5 +158,5 @@ kyc_no = """<table style="width: 409.6px; height: 52px; margin-left: auto; margi
 </table>
 """
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(btcc_mail.format(12345678))

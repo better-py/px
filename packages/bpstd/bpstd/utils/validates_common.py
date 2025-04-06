@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 import uuid
 
-from ..utils.format_timestamp import format_timestamp
 from maneki.apps.error_code import ErrorsCommon
 from maneki.apps.user.models import User
+
+from ..utils.format_timestamp import format_timestamp
 
 
 def validate_timestamp_start(timestamp_start):
@@ -35,7 +35,7 @@ def validate_offset(offset):
 
 
 def validate_email(email):
-    if isinstance(email, str) and '@' in email:
+    if isinstance(email, str) and "@" in email:
         user = User.objects.filter(email=email).first()
         if user:
             return True, email
@@ -45,7 +45,7 @@ def validate_email(email):
 
 def validate_user_id(user_id):
     if isinstance(user_id, str):
-        if '-' in user_id:
+        if "-" in user_id:
             return True, uuid.UUID(user_id).hex
         else:
             return True, user_id

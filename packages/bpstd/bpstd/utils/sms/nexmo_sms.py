@@ -3,7 +3,7 @@ from nexmo import Client
 from ...utils.crypto import generate_nonce_8bit_digits
 
 
-class Nexmo(object):
+class Nexmo:
     NEXMO_API_KEY = "38915e36"
     NEXMO_API_SECRET = "KZCSZP3uPlXnY4w1"
     SENDER = "BTCC"
@@ -19,9 +19,9 @@ class Nexmo(object):
 
     def send_text(self, to, content):
         return self.client.send_message({
-            'from': self.SENDER,
-            'to': to,
-            'text': content,
+            "from": self.SENDER,
+            "to": to,
+            "text": content,
         })
 
     def send_code_with_country(self, mobile: str, mobile_country_code):

@@ -1,0 +1,43 @@
+[project]
+name = "better-px" # py-extension # py-ext
+version = "0.1.1"
+description = "Add your description here"
+readme = "README.md"
+authors = [{ name = "hhglory", email = "hhglory@outlook.com" }]
+keywords = [
+    "better python extension",
+    "better-px",
+    "px",
+    "pyext",
+    "py-ext",
+    "extension module",
+    "python extension module",
+]
+
+
+requires-python = ">=3.12"
+dependencies = ["loguru>=0.7.3", "tsidpy>=1.1.5"]
+
+
+[project.urls]
+Documentation = "https://github.com/better-py/py-pkg"
+Repository = "https://github.com/better-py/py-pkg/"
+Tracker = "https://github.com/better-py/py-pkg/issues"
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# requires = ["pdm-backend"]
+# build-backend = "pdm.backend"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/px"]
+
+
+# 自定义版本
+# [tool.hatch.version]
+# path = "src/px/__init__.py"
+# pattern = "BUILD = 'b(?P<version>[^']+)'"

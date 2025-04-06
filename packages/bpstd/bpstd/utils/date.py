@@ -1,10 +1,9 @@
-# -*- encoding:utf-8 -*-
 import datetime
 import time
 
 
 def time_to_date(time_at):
-    """ convert time to date-str
+    """convert time to date-str
     :param time_at: datetime.datetime(2017, 8, 23, 15, 40, 32, 927512)
     :return: 2017-08-23
     """
@@ -71,19 +70,18 @@ def time_duration_before_input_date(input_date=None, before_days=1):
 
 
 def unix_to_datetime(input_unix=None, format=None):
-    return(
-        datetime.datetime.fromtimestamp(
-            int(input_unix),
-        ).strftime(format)
-    )
+    return datetime.datetime.fromtimestamp(
+        int(input_unix),
+    ).strftime(format)
 
 
 def utc_now_str(timedelta_day=None):
-
     if timedelta_day == None:
-        return datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        return datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
     else:
-        return (datetime.datetime.utcnow() - datetime.timedelta(days=timedelta_day)).strftime('%Y-%m-%d %H:%M:%S')
+        return (
+            datetime.datetime.utcnow() - datetime.timedelta(days=timedelta_day)
+        ).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def utc_now_unixtimestamp():
@@ -92,7 +90,7 @@ def utc_now_unixtimestamp():
     return str(unix_time)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     t = datetime.datetime.now()
     t2d = time_to_date(t)
     d_start, d_end = date_to_duration(t2d)

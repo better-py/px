@@ -1,7 +1,7 @@
-import os
-from telegram.ext import Updater, CommandHandler
-from telegram import Bot
 from django.conf import settings
+from telegram import Bot
+
+
 # telegram bot token:
 API_TOKEN = settings.TELEGRAM_BOT_API_TOKEN
 

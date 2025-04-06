@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from datetime import datetime
 
 from django.db import models
@@ -11,6 +10,7 @@ class BaseModel(models.Model):
     """
     TIMESTAMP has a range of '1970-01-01 00:00:01' UTC to '2038-01-19 03:14:07' UTC.
     """
+
     created_at = models.DateTimeField(verbose_name=_("Created At"), auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name=_("Updated At"), auto_now=True)
 
@@ -71,7 +71,10 @@ class SoftDeleteModel(BaseModel):
     更改删除时间为当前时间
 
     """
-    deleted_at = models.DateTimeField(verbose_name=_("Deleted At"), default=get_zero_time, blank=False, null=False)
+
+    deleted_at = models.DateTimeField(
+        verbose_name=_("Deleted At"), default=get_zero_time, blank=False, null=False
+    )
 
     def soft_delete(self):
         """执行软删除
@@ -95,7 +98,9 @@ class SoftDeleteModel(BaseModel):
 
 # user 相关:
 class UserBaseModel(BaseModel):
-    user_id = models.UUIDField(verbose_name=_("User ID"), null=False, blank=False, db_index=True)
+    user_id = models.UUIDField(
+        verbose_name=_("User ID"), null=False, blank=False, db_index=True
+    )
 
     class Meta:
         abstract = True
@@ -107,7 +112,9 @@ class UserBaseModel(BaseModel):
 
 # user 相关:
 class UserSoftDeleteModel(SoftDeleteModel):
-    user_id = models.UUIDField(verbose_name=_("User ID"), null=False, blank=False, db_index=True)
+    user_id = models.UUIDField(
+        verbose_name=_("User ID"), null=False, blank=False, db_index=True
+    )
 
     class Meta:
         abstract = True

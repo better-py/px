@@ -1,18 +1,22 @@
 version: "3"
 
 includes:
-  std:
-    taskfile: ~/.local/task/better-sre/config/Taskfile.yml
-    dir: ~/.local/task/better-sre/config # global path
-    optional: true #
+  py-std:
+    aliases: ["std"]
+    taskfile: packages/py-std/
+    dir: packages/py-std/
+    optional: true # if not found, skip
+
+  better-x:
+    aliases: ["bx"]
+    taskfile: packages/better-x/
+    dir: packages/better-x/
+    optional: true # if not found, skip
 
   bpstd:
     taskfile: packages/bpstd/
     dir: packages/bpstd/
     optional: true #
-
-
-
 
 ################################################################################################
 
@@ -30,68 +34,114 @@ env:
 dotenv:
   - .env
 
-
 ################################################################################################
 
-
 tasks:
-
-  setup:
-    cmds:
-      - curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
-      - pyenv install 3.9.9
-      - pyenv virtualenv 3.9.9 py39-base
-      - pyenv local py39-base
-      - task: install:tools
-
-  install:tools:
-    cmds:
-      - curl -sSL https://install.python-poetry.org | python3 -      # install poetry
-#      - pipx install poetry
-      - poetry --version
-      - poetry config virtualenvs.in-project true   # todo x: config with pyenv
-      - poetry config --list
-
-  install:
-    cmds:
-      - pip3 install -r requirements.txt
-
-  install:dev:
-    cmds:
-      - pip3 install -r requirements-dev.txt
-
-  init:
-    cmds:
-      - task init:env
-      - task install
-
   init:env:
     cmds:
       - cp .env.local .env
 
+  install:
+    aliases: ["i"]
+    cmds:
+      - uv sync --all-packages --upgrade
+
+  env:
+    cmds:
+      - echo "env"
+      - echo "ENV1= $UV_PUBLISH_TOKEN"
+
+  uv:
+    aliases: ["pkg", "pm"]
+    cmds:
+      - uv {{.CLI_ARGS}}
+
+  sync:
+    cmds:
+      # - uv self update
+      - uv sync --all-packages --all-groups --upgrade
+    ignore_error: true
+
+  fmt:
+    cmds:
+      # - uv run ruff format . --config=pyproject.toml
+      - uv run ruff check --fix . --config=pyproject.toml
+      - uv run ruff check --fix . --config=pyproject.toml
+      - uv run ruff format . --config=pyproject.toml
+      # - uv run ruff format .
+    ignore_error: true
+
+  build:
+    aliases: ["b"]
+    cmds:
+      - echo "build"
+      - uv build
+    ignore_error: true
+
+  publish:fix:
+    aliases: ["pf"]
+    cmds:
+      # dist 下文件, _ 改为 -
+      - echo "fix dist files"
+      - |
+        for file in `ls .`; do
+          new_file=`echo $file | sed 's/_/-/g'`
+          if [ "$file" != "$new_file" ]; then
+            echo "rename $file to $new_file"
+            mv $file $new_file
+          fi
+        done
+      - open .
+    dir: ./dist
+    ignore_error: true
+
+  publish:
+    aliases: ["pub", "up"]
+    cmds:
+      # dist 下文件, _ 改为 -
+      # - task: publish:fix
+      - uv publish
+    ignore_error: true
+
+  clean:
+    aliases: ["cl"]
+    cmds:
+      - echo "clean all"
+      - rm -rf ./.tox
+      - rm -rf ./.pytest_cache
+      - rm -rf ./__pycache__
+      - rm -rf ./build
+      - rm -rf ./dist
+      - rm -rf ./*.egg-info
+      - rm -rf ./coverage.xml
+      - rm -rf ./coverage_html_report
+      - rm -rf ./coverage_html_report.zip
+    ignore_error: true
+
   ##################################################################################################
 
-
-  update:
+  quick:
+    aliases: ["q"]
     cmds:
-      - poetry install --sync
+      - task: cc
+      - task: push
 
-  new:
+  cc:
     cmds:
-      - task: new:py:lib
+      - task: commit
+      - task: commit
 
-  new:py:lib:
-    dir: packages
+  commit:
+    aliases: ["c"]
     cmds:
-      - cookiecutter gh:jacebrowning/template-python -f
+      - git add .
+      - git commit -m "update" --no-verify
+    ignore_error: true
 
-  new:py:lib2:
-    dir: packages
+  pull:
     cmds:
-      - poetry new ${NEW_LIB_NAME}
-
-
-  ##################################################################################################
+      - git config pull.rebase false
+      - git pull origin main
 
   push:
     cmds:

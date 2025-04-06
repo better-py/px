@@ -1,4 +1,3 @@
-# -*- encoding:utf-8 -*-
 from .cache import *
 from .crypto import *
 from .date import *

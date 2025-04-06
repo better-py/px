@@ -1,13 +1,10 @@
-from __future__ import unicode_literals
-
 from collections import OrderedDict
-from rest_framework import status
-from rest_framework import exceptions
+
+from rest_framework import exceptions, mixins, status
 from rest_framework.response import Response
-from rest_framework import mixins
 
 
-class DoTaskHookMixin(object):
+class DoTaskHookMixin:
     # 钩子
     serializer_class_list = None
     serializer_class_create = None
@@ -38,8 +35,10 @@ class DoTaskHookMixin(object):
             "destroy": self.serializer_class_destroy,
             "retrieve": self.serializer_class_list,
         }
-        serializer_class = _func_types.get(func_type.lower()) or self.get_serializer_class()
-        kwargs['context'] = self.get_serializer_context()
+        serializer_class = (
+            _func_types.get(func_type.lower()) or self.get_serializer_class()
+        )
+        kwargs["context"] = self.get_serializer_context()
         return serializer_class(*args, **kwargs)
 
     def do_create(self, request, serializer, instance, *args, **kwargs):
@@ -88,9 +87,8 @@ class DoTaskHookMixin(object):
 
 
 class BetterCreateModelMixin(DoTaskHookMixin, mixins.CreateModelMixin):
-    """rest_framework 实现有些蠢, 重构一下
+    """rest_framework 实现有些蠢, 重构一下"""
 
-    """
     # TODO: 需要指定要不要执行save()操作
     # TODO: 禁用此选项, 自主控制 ojb.save() 操作.
     create_save_required = False
@@ -103,9 +101,13 @@ class BetterCreateModelMixin(DoTaskHookMixin, mixins.CreateModelMixin):
             result = self.response_result
             result.update(
                 code=e.status_code,
-                detail=", ".join("{}: {}".format(k, v) for k, v in e.detail.items()) if isinstance(e.detail, dict) else e.detail,
+                detail=", ".join("{}: {}".format(k, v) for k, v in e.detail.items())
+                if isinstance(e.detail, dict)
+                else e.detail,
             )
-            return Response(result, status=status.HTTP_200_OK)  # TODO: 考虑统一改成 400, 需要变更 validate() 部分.
+            return Response(
+                result, status=status.HTTP_200_OK
+            )  # TODO: 考虑统一改成 400, 需要变更 validate() 部分.
 
         # obj:
         # instance = self.perform_create(serializer) if self.create_save_required else None
@@ -119,7 +121,6 @@ class BetterCreateModelMixin(DoTaskHookMixin, mixins.CreateModelMixin):
 
 
 class BetterListModelMixin(DoTaskHookMixin, mixins.ListModelMixin):
-
     def list(self, request, *args, **kwargs):
         """自定义钩子
 
@@ -135,10 +136,7 @@ class BetterListModelMixin(DoTaskHookMixin, mixins.ListModelMixin):
             queryset = self.filter_queryset(self.get_queryset())
         except Exception as e:
             result = self.response_result
-            result.update(
-                code=449,
-                detail="invalid filter params: [{}]".format(e)
-            )
+            result.update(code=449, detail="invalid filter params: [{}]".format(e))
             return Response(result)
 
         page = self.paginate_queryset(queryset)
@@ -162,10 +160,10 @@ class BetterListModelMixin(DoTaskHookMixin, mixins.ListModelMixin):
         if result.get("code") == 200:
             result.update(
                 data=OrderedDict([
-                    ('count', self.paginator.count),
-                    ('next', self.paginator.get_next_link()),
-                    ('previous', self.paginator.get_previous_link()),
-                    ('results', serializer.data)
+                    ("count", self.paginator.count),
+                    ("next", self.paginator.get_next_link()),
+                    ("previous", self.paginator.get_previous_link()),
+                    ("results", serializer.data),
                 ])
             )
         return result
@@ -202,7 +200,7 @@ class BetterUpdateModelMixin(DoTaskHookMixin, mixins.UpdateModelMixin):
         :param kwargs:
         :return:
         """
-        kwargs['partial'] = True
+        kwargs["partial"] = True
         return self.update(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
@@ -213,9 +211,11 @@ class BetterUpdateModelMixin(DoTaskHookMixin, mixins.UpdateModelMixin):
         :param kwargs:
         :return:
         """
-        partial = kwargs.pop('partial', False)
+        partial = kwargs.pop("partial", False)
         instance = self.get_object()
-        serializer = self._do_serializer(instance, data=request.data, partial=partial, func_type="update")
+        serializer = self._do_serializer(
+            instance, data=request.data, partial=partial, func_type="update"
+        )
         #
         try:
             serializer.is_valid(raise_exception=True)
@@ -225,7 +225,9 @@ class BetterUpdateModelMixin(DoTaskHookMixin, mixins.UpdateModelMixin):
                 code=e.status_code,
                 detail=", ".join("{}: {}".format(k, v) for k, v in e.detail.items()),
             )
-            return Response(result, status=status.HTTP_200_OK)  # TODO: 考虑统一改成 400, 需要变更 validate() 部分.
+            return Response(
+                result, status=status.HTTP_200_OK
+            )  # TODO: 考虑统一改成 400, 需要变更 validate() 部分.
         #
         # obj = self.perform_update(serializer) if self.update_save_required else None
         obj = serializer.save() if self.update_save_required else None
@@ -237,7 +239,7 @@ class BetterUpdateModelMixin(DoTaskHookMixin, mixins.UpdateModelMixin):
         else:
             result = self.do_update(request, serializer, obj, *args, **kwargs)
 
-        if getattr(instance, '_prefetched_objects_cache', None):
+        if getattr(instance, "_prefetched_objects_cache", None):
             # If 'prefetch_related' has been applied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
@@ -248,9 +250,7 @@ class BetterUpdateModelMixin(DoTaskHookMixin, mixins.UpdateModelMixin):
 
 
 class BetterDestroyMixin(DoTaskHookMixin, mixins.DestroyModelMixin):
-    """支持软删除
-
-    """
+    """支持软删除"""
 
     def destroy(self, request, *args, **kwargs):
         """支持软删除

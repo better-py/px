@@ -1,11 +1,17 @@
-# -*- encoding:utf-8 -*-
 import json
 import logging
+
 import pika
 from django.conf import settings
 from pika.adapters.blocking_connection import BlockingChannel
 
-from ..utils import generate_sign_sha256, validate_sign_sha256, generate_nonce_8bit, generate_timestamp_13bit
+from ..utils import (
+    generate_nonce_8bit,
+    generate_sign_sha256,
+    generate_timestamp_13bit,
+    validate_sign_sha256,
+)
+
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +25,7 @@ DEFAULT_MQ_CONFIG = settings.RABBITMQ_CONFIG_GROUP["default"]
 DEFAULT_MQ_SIGN_SECRET_KEY = settings.RABBITMQ_SIGN_SECRET_KEY
 
 
-class BaseMQService(object):
+class BaseMQService:
     MQ_URL = DEFAULT_MQ_URL
     MQ_CONTENT_TYPE = DEFAULT_MQ_CONTENT_TYPE
     #
@@ -27,7 +33,9 @@ class BaseMQService(object):
     #
     MQ_SIGN_SECRET_KEY = DEFAULT_MQ_SIGN_SECRET_KEY
 
-    def __init__(self, mq_url=None, mq_content_type=None, mq_conf_groups=None, secret_key=None):
+    def __init__(
+        self, mq_url=None, mq_content_type=None, mq_conf_groups=None, secret_key=None
+    ):
         """
 
         :param mq_url:
@@ -74,8 +82,15 @@ class BaseMQService(object):
             )
 
     @staticmethod
-    def _setup_queue(channel: BlockingChannel, exchange, exchange_type, queue, routing_key, arguments=None):
-        """ 声明 MQ 的交换器和队列, 已经队列绑定交换器
+    def _setup_queue(
+        channel: BlockingChannel,
+        exchange,
+        exchange_type,
+        queue,
+        routing_key,
+        arguments=None,
+    ):
+        """声明 MQ 的交换器和队列, 已经队列绑定交换器
 
         :param channel:
         :param exchange:
@@ -122,7 +137,11 @@ class BaseProducer(BaseMQService):
             content_type=self.mq_content_type,
             delivery_mode=2,
         )  # 持久模式
-        logger.info('^^publish msg  routing_key:{}|message body:{} ,exchange:{}, props:{}, channel, {}'.format(routing_key, message, exchange, props, channel))
+        logger.info(
+            "^^publish msg  routing_key:{}|message body:{} ,exchange:{}, props:{}, channel, {}".format(
+                routing_key, message, exchange, props, channel
+            )
+        )
 
         try:
             # 发布消息
@@ -140,7 +159,9 @@ class BaseProducer(BaseMQService):
     def _format_message(self, message: dict, channel: BlockingChannel):
         if not isinstance(message, dict):
             channel.close()
-            raise TypeError("Invalid Message Type: [{}] must be dict object.".format(message))
+            raise TypeError(
+                "Invalid Message Type: [{}] must be dict object.".format(message)
+            )
         # add sign:
         message = self._sign_payload(message)
         return json.dumps(message, ensure_ascii=False)
@@ -195,7 +216,9 @@ class BaseConsumer(BaseMQService):
 
         try:
             # bugfix: 提前 return 导致 异常时 basic_nack() 未被执行.
-            logger.info("body:{}, {}".format(type(body), body))  # TODO: 需要清理, ENGINE_RPC_PARAMS
+            logger.info(
+                "body:{}, {}".format(type(body), body)
+            )  # TODO: 需要清理, ENGINE_RPC_PARAMS
 
             payload = json.loads(body) if not isinstance(body, dict) else body
 

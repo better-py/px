@@ -5,7 +5,6 @@ from ...utils.sms.send_pool import SmsSender
 
 
 class TestSendNexmo(TestCase):
-
     def test_send_code(self):
         country_code = "86"
         mobile = "18838113104"
@@ -14,7 +13,6 @@ class TestSendNexmo(TestCase):
 
 
 class TestSendPool(TestCase):
-
     def test_send_china(self):
         country_code = "86"
         mobile = "18838113104"

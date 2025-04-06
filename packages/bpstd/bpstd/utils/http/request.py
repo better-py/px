@@ -1,7 +1,7 @@
-# -*- encoding:utf-8 -*-
 import logging
 
 import requests
+
 
 logger = logging.getLogger(__name__)
 

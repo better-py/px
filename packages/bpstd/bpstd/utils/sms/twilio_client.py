@@ -4,13 +4,14 @@ from twilio.rest import Client
 
 from ...utils import generate_nonce_8bit_digits
 
+
 logger = logging.getLogger(__name__)
 
 
-class TwiLio(object):
-    TWILIO_ACCOUNT_SID = 'ACd8de43d24ae9ca914a1ae4a54e90520e'
-    TWILIO_AUTH_TOKEN = '359a0a37fab1e8ce57711ba0eb86b095'
-    MOBILE_FROM = '+13312156760'
+class TwiLio:
+    TWILIO_ACCOUNT_SID = "ACd8de43d24ae9ca914a1ae4a54e90520e"
+    TWILIO_AUTH_TOKEN = "359a0a37fab1e8ce57711ba0eb86b095"
+    MOBILE_FROM = "+13312156760"
 
     APP_NAME = "Twilio"
 
@@ -22,9 +23,7 @@ class TwiLio(object):
 
     def send_text(self, to, content, send_from=None):
         msg = self.client.messages.create(
-            body=content,
-            from_=send_from if send_from else self.mobile_from,
-            to=to
+            body=content, from_=send_from if send_from else self.mobile_from, to=to
         )
         logger.debug(msg.sid)
         print(msg)
@@ -43,10 +42,7 @@ DO NOT reveal this code to anyone.""".format(code)
 
     def _deal_with_response(self, response):
         code = response.error_code if response.error_code else 200
-        data = {
-            'status_code': code,
-            'body': response
-        }
+        data = {"status_code": code, "body": response}
         return data
 
 

@@ -7,7 +7,6 @@ from ..utils.sms.twilio_client import TwiLio
 
 
 class NeteaseSMSTest(TestCase):
-
     def setUp(self):
         app_key = "cd4e09d1b951a4c4d0c3eb5fcf01c8c8"
         app_secret = "a24e8ba3c4ab"
@@ -56,7 +55,10 @@ class NeteaseSMSTest(TestCase):
 
         templdate_id = "3893012"
         code = self.api.random_code
-        result = self.api.send_template(templdate_id, self.mobile, )
+        result = self.api.send_template(
+            templdate_id,
+            self.mobile,
+        )
 
 
 """
@@ -117,7 +119,6 @@ HTTP-data: {'mobile': '13380789XXX', 'code': '472451'}
 
 
 class TwilioTest(TestCase):
-
     def setUp(self):
         self.phone_num = "+8615827629220"
         self.code = "+86"
@@ -127,7 +128,7 @@ class TwilioTest(TestCase):
         response = s.send_code_with_country(self.phone_num, self.code)
         # error_code = response[0].error_code
         print(response)
-        code = response[0].get('status_code')
+        code = response[0].get("status_code")
         assert code == 200
         return response
 
@@ -140,11 +141,11 @@ class TwilioTest(TestCase):
     def test_netease(self):
         s = NeteaseSMS()
         result = s.send_code_with_country(self.phone_num, self.code)
-        assert result[0].get('code') == 200
+        assert result[0].get("code") == 200
         print(result)
 
     def test_nexmo(self):
         s = Nexmo()
         result = s.send_code_with_country(self.phone_num, self.code)
-        assert result[0].get('messages')[0].get('status') == '0'
+        assert result[0].get("messages")[0].get("status") == "0"
         print(result)

@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
-from sqlalchemy_utils import database_exists, create_database, drop_database
+from sqlalchemy_utils import create_database, database_exists, drop_database
 
 
-class DBEngine(object):
+class DBEngine:
     """创建db
     CREATE DATABASE mydatabase CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -24,9 +24,11 @@ class DBEngine(object):
     @property
     def db_url(self):
         # utf8mb4
-        url = 'mysql+pymysql://{0}:{1}@{2}:{3}/{4}?charset={5}?collation=utf8mb4_unicode_ci'.format(
-            self.user, self.password,
-            self.host, self.port,
+        url = "mysql+pymysql://{0}:{1}@{2}:{3}/{4}?charset={5}?collation=utf8mb4_unicode_ci".format(
+            self.user,
+            self.password,
+            self.host,
+            self.port,
             self.db_name,
             self.db_charset,
         )
@@ -34,7 +36,9 @@ class DBEngine(object):
 
     @property
     def engine(self):
-        connect_args = {'init_command': "SET @@collation_connection='utf8mb4_unicode_ci'"}
+        connect_args = {
+            "init_command": "SET @@collation_connection='utf8mb4_unicode_ci'"
+        }
         return create_engine(self.db_url, connect_args=connect_args)
 
     def conn(self):

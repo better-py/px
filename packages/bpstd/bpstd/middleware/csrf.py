@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
-
-class DisableCSRFMiddleware(object):
+class DisableCSRFMiddleware:
     """DEBUG 模式下, 禁用 csrf 检查:
 
     - 默认禁用 csrf中间件, 是不够的, SessionAuthentication() 有自己的 csrf 检查.
@@ -16,6 +13,6 @@ class DisableCSRFMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request):
-        setattr(request, '_dont_enforce_csrf_checks', True)
+        request._dont_enforce_csrf_checks = True
         response = self.get_response(request)
         return response

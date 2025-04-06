@@ -1,6 +1,3 @@
-# -*- encoding:utf-8 -*-
-
-
 def dict_value_to_key(src_dic: dict, value):
     """字典 - 由 value 找 key
 

@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*
 import validators
-import uuid
 
 
-class ParamValidator(object):
-
+class ParamValidator:
     def __init__(self):
         self.validator = validators
 

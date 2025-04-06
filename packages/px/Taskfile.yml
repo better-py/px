@@ -1,0 +1,23 @@
+version: "3"
+
+tasks:
+  build:
+    aliases: ["b"]
+    cmds:
+      - uv build -o dist/
+    ignore_error: true
+
+  publish:
+    cmds:
+      - task: build
+      - echo "publish to pypi, token is $UV_PUBLISH_TOKEN"
+      - uv publish
+    ignore_error: true
+    dotenv:
+      - ../../.env
+
+  clean:
+    aliases: ["c", "cl"]
+    cmds:
+      - rm -rf dist
+    ignore_error: true

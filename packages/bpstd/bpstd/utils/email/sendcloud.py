@@ -2,15 +2,17 @@ import logging
 
 import requests
 
+
 logger = logging.getLogger(__name__)
 
 
-class SendCloudV2(object):
+class SendCloudV2:
     """
 
     ref: http://sendcloud.sohu.com/doc/email_v2/
 
     """
+
     API_USER = "btccexchange"  # test user
     API_KEY = "S96GtISlbDANTjrW"
     #
@@ -71,4 +73,4 @@ class SendCloudV2(object):
         return self._do_get(url, self.params_v2)
 
 
-client = SendCloudV2(api_user='btccexchange', api_key='S96GtISlbDANTjrW')
+client = SendCloudV2(api_user="btccexchange", api_key="S96GtISlbDANTjrW")

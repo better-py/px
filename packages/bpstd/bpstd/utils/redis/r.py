@@ -1,6 +1,8 @@
 import logging
-from redis import StrictRedis
+
 from django.conf import settings
+from redis import StrictRedis
+
 
 logger = logging.getLogger(__name__)
 
@@ -23,30 +25,36 @@ def redis_client(redis_url, db: int):
 
 def redis_client2(host: str = None, port: int = None, db: int = None):
     return StrictRedis(
-        host=host, port=port, db=db,
+        host=host,
+        port=port,
+        db=db,
         decode_responses=True,
     )
 
 
-class RedisClient(object):
-
+class RedisClient:
     def __init__(self, host=None, port=None, db=None, decode_responses=False, **kwargs):
-        if kwargs.get('url', False):
-            url = kwargs.get('url')
-            self.client = StrictRedis.from_url(url=url, db=db, decode_responses=decode_responses)
+        if kwargs.get("url", False):
+            url = kwargs.get("url")
+            self.client = StrictRedis.from_url(
+                url=url, db=db, decode_responses=decode_responses
+            )
         else:
-            self.client = StrictRedis(host=host, port=port, db=db, decode_responses=decode_responses)
+            self.client = StrictRedis(
+                host=host, port=port, db=db, decode_responses=decode_responses
+            )
 
 
 redis_sessions = {
-    'UserInfo': RedisClient(url=settings.REDIS_LOCATION_USER_INFO).client,
-    'Permission': RedisClient(url=settings.REDIS_LOCATION_USER_INFO).client,
-    'BlackList': RedisClient(url=settings.REDIS_LOCATION_USER_BLACK_LIST).client,
-    'TokenAuth': RedisClient(url=settings.REDIS_LOCATION_USER_INFO, decode_responses=True).client,
-
+    "UserInfo": RedisClient(url=settings.REDIS_LOCATION_USER_INFO).client,
+    "Permission": RedisClient(url=settings.REDIS_LOCATION_USER_INFO).client,
+    "BlackList": RedisClient(url=settings.REDIS_LOCATION_USER_BLACK_LIST).client,
+    "TokenAuth": RedisClient(
+        url=settings.REDIS_LOCATION_USER_INFO, decode_responses=True
+    ).client,
 }
 
-TOKEN_PREFIX = 'auth:token:'
+TOKEN_PREFIX = "auth:token:"
 
 
 def get_token_cache_key(key, prefix=TOKEN_PREFIX):

@@ -11,7 +11,6 @@ def test_mq_conf():
     mq_conf = settings.RABBITMQ_CONFIG_GROUP
 
     for k, v in mq_conf.items():
-
         print("\t{}:".format(k))
         if isinstance(v, dict):
             for kk, vv in v.items():

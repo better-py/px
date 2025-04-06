@@ -1,8 +1,8 @@
-# -*- encoding:utf-8 -*-
 import logging
 import os
 
 from slack import WebClient as SlackClient
+
 
 logger = logging.getLogger(__name__)
 

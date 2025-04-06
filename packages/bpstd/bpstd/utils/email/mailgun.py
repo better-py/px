@@ -1,15 +1,18 @@
-import requests
 import logging
+
+import requests
+
 
 logger = logging.getLogger(__name__)
 
 
-class MailGun(object):
+class MailGun:
     """
 
     ref: http://sendcloud.sohu.com/doc/email_v2/
 
     """
+
     API_USER = "default_api_user"  # test user
     API_KEY = "key-98fa5d0f403bed6e8a1576a78f085b2e"
     #
@@ -29,13 +32,13 @@ class MailGun(object):
         :return:
         """
 
-        url = self.api_prefix + self.API_DOMAIN+"/messages"
+        url = self.api_prefix + self.API_DOMAIN + "/messages"
 
-        result = requests.post(url,
-                               auth=("api", self.api_key),
-                               data=payload)
-        logger.info("send email from mail gun, url:{}\n data: {}\n result:{}".format(url, payload, result.content))
+        result = requests.post(url, auth=("api", self.api_key), data=payload)
+        logger.info(
+            "send email from mail gun, url:{}\n data: {}\n result:{}".format(
+                url, payload, result.content
+            )
+        )
 
         return result
-
-

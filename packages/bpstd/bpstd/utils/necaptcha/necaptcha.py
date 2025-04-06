@@ -1,18 +1,17 @@
-# -*- coding: utf-8 -*-
+import hashlib
 import logging
 import random
 import time
-import hashlib
 
 import requests
-
 from config.settings.env import NE_CAPTCHA_ID, NE_SECRET_ID, NE_SECRET_KEY
+
 
 VERSION = "v2"
 logger = logging.getLogger(__name__)
 
 
-class NECaptchaVerifier(object):
+class NECaptchaVerifier:
     REQ_VALIDATE = "NECaptchaValidate"
     API_URL = "http://c.dun.163yun.com/api/v2/verify"
     CAPTCHA_ID = NE_CAPTCHA_ID
@@ -26,7 +25,7 @@ class NECaptchaVerifier(object):
 
     def _do_post(self, payload):
         headers = {
-            'content-type': 'application/x-www-form-urlencoded',
+            "content-type": "application/x-www-form-urlencoded",
         }
         response = requests.post(self.API_URL, data=payload, timeout=5, headers=headers)
         return response
@@ -49,7 +48,7 @@ class NECaptchaVerifier(object):
             response = self._do_post(params)
             response_data = response.json()
             logger.info("ne_captcha_response: {}".format(response_data))
-            return response_data['result'] if 'result' in response_data else False
+            return response_data["result"] if "result" in response_data else False
         except Exception as e:
             print("ne_captcha API fail: {}".format(e))
             logger.error("ne_captcha API fail: {}".format(e))
@@ -60,4 +59,4 @@ class NECaptchaVerifier(object):
         for k in sorted(params.keys()):
             buff += str(k) + str(params[k])
         buff += self.secret_key
-        return hashlib.md5(buff.encode('utf8')).hexdigest()
+        return hashlib.md5(buff.encode("utf8")).hexdigest()

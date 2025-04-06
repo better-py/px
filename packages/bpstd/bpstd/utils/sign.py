@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
-import logging
 import hashlib
 import hmac
+import logging
 from collections import OrderedDict
 from urllib import parse as url_parse
+
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ def generate_sign_sha256(payload: dict, secret_key: str):
 
 # 生成签名:
 def _generate_signature(payload: dict, secret_key: str, sign_type: str):
-    """ 生成签名
+    """生成签名
 
     :param payload: 待签名数据, type=dict
     :param secret_key: 私钥
@@ -30,8 +30,8 @@ def _generate_signature(payload: dict, secret_key: str, sign_type: str):
     enc_payload = format_payload(payload)
 
     signed = hmac.new(
-        bytes(secret_key, encoding='utf8'),
-        bytes(enc_payload, encoding='utf8'),
+        bytes(secret_key, encoding="utf8"),
+        bytes(enc_payload, encoding="utf8"),
         sign_type,
     ).hexdigest()
     return signed
@@ -82,7 +82,7 @@ def format_url(base_url: str, url_suffix: str, params=""):
     return url
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     for func in (generate_sign_sha512, generate_sign_sha256):
         result = func({"name": "jim", "msg": "hello"}, "hello")
         print(result)

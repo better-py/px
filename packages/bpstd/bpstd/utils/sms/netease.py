@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import hashlib
 import random
 import time
@@ -8,6 +7,7 @@ import uuid
 import requests
 
 from ...utils import generate_nonce_8bit_digits
+
 
 """
 
@@ -27,9 +27,9 @@ http://dev.netease.im/docs?doc=server&#接口概述
 """
 
 
-class NeteaseSMS(object):
-    """ 网易云信短信验证码服务 API 接口:
-    """
+class NeteaseSMS:
+    """网易云信短信验证码服务 API 接口:"""
+
     APP_KEY = "cd4e09d1b951a4c4d0c3eb5fcf01c8c8"
     APP_SECRET = "a24e8ba3c4ab"
 
@@ -59,12 +59,14 @@ class NeteaseSMS(object):
         return str(int(time.time()))
 
     def checksum(self, nonce, current_time):
-        s = "{}{}{}".format(self.app_secret, nonce, current_time).encode(encoding="utf-8")
+        s = "{}{}{}".format(self.app_secret, nonce, current_time).encode(
+            encoding="utf-8"
+        )
         return hashlib.sha1(s).hexdigest()
 
     @property
     def http_headers(self):
-        """ 构造 HTTP 请求头
+        """构造 HTTP 请求头
 
         :return:
         """
@@ -82,7 +84,7 @@ class NeteaseSMS(object):
 
     @property
     def random_code(self):
-        """ 自定义生成6位验证码
+        """自定义生成6位验证码
         :return:
         """
         return str(random.randint(100000, 999999))
@@ -101,7 +103,7 @@ class NeteaseSMS(object):
     ##################################################
 
     def send_code(self, mobile: str):
-        """ 调用网易短信验证码服务接口, 发送验证码到手机.
+        """调用网易短信验证码服务接口, 发送验证码到手机.
         :param mobile: 手机号
         :return: 返回调用结果
                 - {'msg': '4', 'code': 200, 'obj': '4123'}
@@ -110,17 +112,23 @@ class NeteaseSMS(object):
                 - msg: 对应 查询里的 send_id 参数
         """
         payload = {
-            "mobile": str(mobile) if not mobile.startswith("+86") else str(mobile).lstrip("+86"),
+            "mobile": str(mobile)
+            if not mobile.startswith("+86")
+            else str(mobile).lstrip("+86"),
         }
-        return self._post(self.api_urls["send"], payload=payload, headers=self.http_headers)
+        return self._post(
+            self.api_urls["send"], payload=payload, headers=self.http_headers
+        )
 
     def send_code_with_country(self, mobile: str, mobile_country_code):
         code = generate_nonce_8bit_digits(length=4)
-        mobile = mobile.replace('+86', '')
-        return self.send_template(mobiles=mobile, params=[code, code], template_id='3893012'), code
+        mobile = mobile.replace("+86", "")
+        return self.send_template(
+            mobiles=mobile, params=[code, code], template_id="3893012"
+        ), code
 
     def send_template(self, template_id, mobiles, params=None):
-        """ 发送模板短信
+        """发送模板短信
         :param template_id: 模板 ID, 目前测试发现: 只支持通知类模板, 不支持验证码模板.
         :param mobiles: 手机号列表
         :param params: 参数列表
@@ -137,7 +145,9 @@ class NeteaseSMS(object):
             params = [params] if not isinstance(params, list) else params
             payload.update({"params": str(params)})
 
-        return self._post(self.api_urls["send_template"], payload=payload, headers=self.http_headers)
+        return self._post(
+            self.api_urls["send_template"], payload=payload, headers=self.http_headers
+        )
 
     def verify_code(self, mobile, code):
         """验证码正确性检查:
@@ -150,7 +160,9 @@ class NeteaseSMS(object):
             "mobile": str(mobile),
             "code": str(code),
         }
-        return self._post(self.api_urls["verify"], payload=payload, headers=self.http_headers)
+        return self._post(
+            self.api_urls["verify"], payload=payload, headers=self.http_headers
+        )
 
     def query_status(self, send_id):
         """验证码发送状态查询:
@@ -161,8 +173,12 @@ class NeteaseSMS(object):
         payload = {
             "sendid": str(send_id),
         }
-        return self._post(self.api_urls["query_status"], payload=payload, headers=self.http_headers)
+        return self._post(
+            self.api_urls["query_status"], payload=payload, headers=self.http_headers
+        )
 
 
 # Todo: add key to settings
-client = NeteaseSMS(app_key="cd4e09d1b951a4c4d0c3eb5fcf01c8c8", app_secret="a24e8ba3c4ab")
+client = NeteaseSMS(
+    app_key="cd4e09d1b951a4c4d0c3eb5fcf01c8c8", app_secret="a24e8ba3c4ab"
+)

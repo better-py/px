@@ -1,4 +1,3 @@
-# -*- encoding:utf-8 -*-
 from functools import wraps
 
 from django.db import connections

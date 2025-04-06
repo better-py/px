@@ -1,11 +1,12 @@
-# -*- coding: utf-8 -*-
 import logging
+
 from django.core.cache import caches as DjangoCaches
+
 
 logger = logging.getLogger(__name__)
 
 
-class BaseRedisCacheHandler(object):
+class BaseRedisCacheHandler:
     """
 
     :ref:
@@ -14,6 +15,7 @@ class BaseRedisCacheHandler(object):
 
 
     """
+
     CACHE_BACKEND = DjangoCaches["default"]
 
     def __init__(self, cache: DjangoCaches = None):
@@ -35,7 +37,7 @@ class BaseRedisCacheHandler(object):
         """
         raw = self.get(key) or {}
         if not isinstance(value, dict):
-            return
+            return None
         raw.update(value)
         return self.set(key, raw, timeout)
 
@@ -44,7 +46,6 @@ class BaseRedisCacheHandler(object):
 
 
 class ServerCache(BaseRedisCacheHandler):
-    """服务自身 cache 服务
+    """服务自身 cache 服务"""
 
-    """
     CACHE_BACKEND = DjangoCaches["default"]

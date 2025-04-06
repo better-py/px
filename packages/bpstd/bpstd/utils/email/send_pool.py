@@ -1,15 +1,16 @@
 import logging
 from random import choice
+
 from ...utils.decorator.decorators import retry
-from .smtp2go import client as smtp_client
-from .sendcloud import client as send_client
 from .mail_gun import client as mail_client
+from .sendcloud import client as send_client
+from .smtp2go import client as smtp_client
 
 
 logger = logging.getLogger(__name__)
 
-class EmailSenderPool(object):
 
+class EmailSenderPool:
     def __init__(self):
         # TODO 增加邮件服务商到发送池
         self.client_pool = [send_client, mail_client]
@@ -33,4 +34,3 @@ class EmailSenderPool(object):
         if not r:
             r = self.send_template_mail(payload=payload)
         return r
-
