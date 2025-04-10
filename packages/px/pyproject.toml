@@ -1,6 +1,6 @@
 [project]
 name = "better-px" # py-extension # py-ext
-version = "0.1.2"
+version = "0.2.1"
 description = "Add your description here"
 readme = "README.md"
 authors = [{ name = "hhglory", email = "hhglory@outlook.com" }]

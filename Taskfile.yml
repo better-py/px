@@ -1,16 +1,16 @@
 version: "3"
 
 includes:
-  py-std:
+  better-std:
     aliases: ["std"]
-    taskfile: packages/py-std/
-    dir: packages/py-std/
+    taskfile: packages/std/
+    dir: packages/std/
     optional: true # if not found, skip
 
-  better-x:
-    aliases: ["bx"]
-    taskfile: packages/better-x/
-    dir: packages/better-x/
+  better-px:
+    aliases: ["bx", "px"]
+    taskfile: packages/px/
+    dir: packages/px/
     optional: true # if not found, skip
 
   bpstd:
@@ -70,6 +70,13 @@ tasks:
       - uv run ruff format . --config=pyproject.toml
       # - uv run ruff format .
     ignore_error: true
+
+  new:rs:
+    aliases: ["n"]
+    cmds:
+      # - uv run maturin new --mixed --src {{.CLI_ARGS}} # pyrslib, o3lib
+      - uvx maturin new --mixed --src {{.CLI_ARGS}} # pyrslib, o3lib
+    dir: packages/
 
   docs:
     cmds:
@@ -137,6 +144,13 @@ tasks:
     cmds:
       - task: cc
       - task: push
+
+  # usage: task rc -- 2
+  cf:
+    aliases: ["reset:commit", "rc"]
+    cmds:
+      - git reset --soft HEAD~{{.CLI_ARGS}}
+      - task: c
 
   cc:
     cmds:

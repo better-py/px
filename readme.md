@@ -7,18 +7,22 @@
 | modules                 | desc               | rank       |
 |:------------------------|:-------------------|:-----------|
 | [bpstd](packages/bpstd) | common libs        | ⭐⭐         |
-| xxxxxxxxxxxxxx          | xxxxxxxxxxxxxxxxxx | xxxxxxxxxx |
-| xxxxxxxxxxxxxx          | xxxxxxxxxxxxxxxxxx | xxxxxxxxxx |
+| [better-px](packages/px)          | 第三方库增强扩展 | ⭐⭐⭐ |
+| [better-std](packages/std]          | 标准库增强扩展 | ⭐ |
 
 ## Usage
 
-- poetry + git:
+- uv + git:
 
 ```ruby
+# add better-px:
+uv add better-px
+
+# add better-std:
+uv add better-std
 
 # add bpstd:
-poetry add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
-
+uv add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
 
 ```
 
@@ -31,7 +35,13 @@ poetry add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
 
 ## Requirements
 
-### [packages/bpstd](packages/bpstd)
+### [packages/better-px]
+
+> python 3rd party extensions.
+
+- ✅ 集成大量 python `第三方热门库`的 工具库
+
+### [packages/bpstd]
 
 > common libs for `django` development.
 
@@ -49,27 +59,15 @@ poetry add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
 
 - ✅ [go-task](https://taskfile.dev/): 命令行脚本工具
   - [Taskfile](Taskfile.yml): 配置脚本， 替代 Makefile
-- ✅ python 3.9+
-- ✅ [poetry](https://python-poetry.org/): python 包管理工具
-- ✅ pytest
+- ✅ python 3.12+
 
 ```ruby
 
 # install go-task:
 brew install go-task
 
-# install python dev tools:
-task install:tools
-
-# install python requirements:
-task install:dev
-
 ```
 
 ## References
 
 - python package template: [template-python](https://github.com/jacebrowning/template-python)
-- pipx: [pipx](https://pypa.github.io/pipx/installation/) + [pypi](https://pypi.org/)
-- pyenv: [pyenv](https://github.com/pyenv/pyenv)
-- poetry: [poetry](https://python-poetry.org/docs/)
-- [pyenv + poetry](https://medium.com/@sri_40116/starting-with-pyenv-poetry-for-python-development-9180720bbed5)
