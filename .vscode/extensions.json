@@ -18,8 +18,8 @@
     "dbcode.dbcode",
     "ms-python.vscode-pylance",
     "ms-python.debugpy",
-    "ms-dotnettools.csharp",
-    "ms-dotnettools.csdevkit",
+    // "ms-dotnettools.csharp",
+    // "ms-dotnettools.csdevkit",
     "eamodio.gitlens",
     "vintharas.learn-vim",
     "antfu.file-nesting"
