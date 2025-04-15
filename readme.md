@@ -1,18 +1,20 @@
-# Python Packages
+# Python Extensions
 
-- ✅ python packages.
+- ✅ python extensions.
+
+## Documentation
+
+- better-py.github.io/px/
 
 ## Packages
 
 | modules                 | desc               | rank       |
 |:------------------------|:-------------------|:-----------|
-| [bpstd](packages/bpstd) | common libs        | ⭐⭐         |
-| [better-px](packages/px)          | 第三方库增强扩展 | ⭐⭐⭐ |
-| [better-std](packages/std]          | 标准库增强扩展 | ⭐ |
+| ✅ [bpstd](packages/bpstd) | common libs        | ⭐⭐         |
+| ✅ [better-px](packages/px)          | 第三方库增强扩展 | ⭐⭐⭐ |
+| ✅ [better-std](packages/std]          | 标准库增强扩展 | ⭐ |
 
 ## Usage
-
-- uv + git:
 
 ```ruby
 # add better-px:
@@ -21,37 +23,10 @@ uv add better-px
 # add better-std:
 uv add better-std
 
-# add bpstd:
+# uv+git add bpstd:
 uv add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
 
 ```
-
-## Intro
-
-### [packages/bpstd](packages/bpstd)
-
-- ✅ 开箱即用的 django 开发工具包
-- ✅ 已集成大量 django 开发常用的工具库
-
-## Requirements
-
-### [packages/better-px]
-
-> python 3rd party extensions.
-
-- ✅ 集成大量 python `第三方热门库`的 工具库
-
-### [packages/bpstd]
-
-> common libs for `django` development.
-
-- ✅ python 3.9+
-- ✅ django
-- ✅ django-rest-framework
-- ✅ redis
-- ✅ mysql
-- ✅ rabbitmq
-- ✅ celery
 
 ## Development
 
