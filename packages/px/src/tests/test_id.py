@@ -41,14 +41,14 @@ def test_benchmark():
     import timeit
 
     ret = timeit.timeit(
-        "px.generate_id_digit()",
+        "px.generate_19_digit()",
         setup="import px",
         number=100000,
     )
 
     print(f"timeit: {ret}")
     ret = timeit.timeit(
-        "px.generate_id_str()",
+        "px.generate_13_str()",
         setup="import px",
         number=100000,
     )

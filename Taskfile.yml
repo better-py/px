@@ -126,6 +126,16 @@ tasks:
     aliases: ["cl"]
     cmds:
       - echo "clean all"
+      - find packages/ -name "*.pyc" -exec rm -rf {} \;
+      - find packages/ -name "__pycache__" -exec rm -rf {} \;
+      - find packages/ -name "*.egg-info" -exec rm -rf {} \;
+      - find packages/ -name "*.dist-info" -exec rm -rf {} \;
+      - find packages/ -name "*.so" -exec rm -rf {} \;
+      - find packages/ -name "*.pyd" -exec rm -rf {} \;
+      - find packages/ -name "*.dll" -exec rm -rf {} \;
+      - find packages/ -name "*.dylib" -exec rm -rf {} \;
+      - find packages/ -name "*.lib" -exec rm -rf {} \;
+
       - rm -rf ./.tox
       - rm -rf ./.pytest_cache
       - rm -rf ./__pycache__

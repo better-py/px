@@ -38,5 +38,6 @@ tasks:
   test:
     aliases: ["t"]
     cmds:
-      - uv run pytest -s -ra {{.CLI_ARGS}}
+      - uv run pytest -s -ra tests/{{.CLI_ARGS}}
+    dir: src/
     ignore_error: true
