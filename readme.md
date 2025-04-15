@@ -41,6 +41,9 @@ uv add git+https://github.com/better-py/pkg.git@main#packages/bpstd=subdir
 # install go-task:
 brew install go-task
 
+# run:
+task dl
+
 ```
 
 ## References
