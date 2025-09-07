@@ -155,19 +155,45 @@ tasks:
     cmds:
       - task: x:py:cl
 
-  ##################################################################################################
+  ################################################################################
 
-  q:
-    aliases: ["quck"]
+  count:
     cmds:
-      - task: x:q
+      - tokei # 代码统计: https://github.com/XAMPPRocky/tokei
+
+  quick:
+    aliases: ["q"]
+    cmds:
+      - task: cc
+      - task: push
 
   # usage: task rc -- 2
-  cf:
-    aliases: ["rc"]
+  rc:
+    aliases: ["reset:commit"]
     cmds:
-      - task: x:cf
+      - git reset --soft HEAD~{{.CLI_ARGS}}
+      - task: c
 
-  c:
+  cc:
     cmds:
-      - task: x:c
+      - task: commit
+      - task: commit
+
+  commit:
+    aliases: ["c"]
+    cmds:
+      - git add .
+      - git status
+      - |
+        git commit -m 'chore: update' --no-verify
+    ignore_error: true
+
+  pull:
+    cmds:
+      - git config pull.rebase false
+      - git pull origin main
+
+  push:
+    cmds:
+      - git push origin main --tags
+      - repo_url=`git remote -v | grep push | awk -F ":" '{print $2}' | awk -F ".git" '{print "https://github.com/"$1}'`; open $repo_url

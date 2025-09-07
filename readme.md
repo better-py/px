@@ -11,8 +11,7 @@
 | modules                 | desc               | rank       |
 |:------------------------|:-------------------|:-----------|
 | ✅ [bpstd](packages/bpstd) | common libs        | ⭐⭐         |
-| ✅ [better-px](packages/px)          | 第三方库增强扩展 | ⭐⭐⭐ |
-| ✅ [better-std](packages/std]          | 标准库增强扩展 | ⭐ |
+| ❌ [better-px](packages/px)          | 已经迁移到 `azstd` | ⭐⭐⭐ |
 
 ## Usage
 

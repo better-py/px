@@ -1,4 +1,11 @@
-# better python extensions
+
+# Archived
+
+- ❌ 本项目, 已经废弃, 已经迁移到 `azstd` 项目!
+- ❌ 本项目, 已经废弃, 已经迁移到 `azstd` 项目!
+- ❌ 本项目, 已经废弃, 已经迁移到 `azstd` 项目!
+
+## better python extensions
 
 - ✅ 开箱即用的 python 扩展
 
